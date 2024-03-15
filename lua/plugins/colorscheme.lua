@@ -57,11 +57,12 @@ return {
   },
   {
     "catppuccin/nvim",
-    lazy = true,
+    lazy = false,
+    priority = 1000,
     name = "catppuccin",
     opts = {
       background = {
-        dark = "mocha",
+        dark = "frappe",
         light = "latte",
       },
       transparent_background = true,
@@ -104,9 +105,57 @@ return {
     },
   },
   {
-    "LazyVim/LazyVim",
+    "loctvl842/monokai-pro.nvim",
+    lazy = false,
+    enabled = true,
+    config = function()
+      require("monokai-pro").setup({
+        transparent_background = true,
+        terminal_colors = true,
+        devicons = true, -- highlight the icons of `nvim-web-devicons`
+        styles = {
+          comment = { italic = true },
+          keyword = { italic = true }, -- any other keyword
+          type = { italic = true }, -- (preferred) int, long, char, etc
+          storageclass = { italic = true }, -- static, register, volatile, etc
+          structure = { italic = true }, -- struct, union, enum, etc
+          parameter = { italic = true }, -- parameter pass in function
+          annotation = { italic = true },
+          tag_attribute = { italic = true }, -- attribute of tag in reactjs
+        },
+        filter = "octagon", -- classic | octagon | pro | machine | ristretto | spectrum
+        -- Enable this will disable filter option
+        day_night = {
+          enable = false, -- turn off by default
+          day_filter = "pro", -- classic | octagon | pro | machine | ristretto | spectrum
+          night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
+        },
+        inc_search = "background", -- underline |
+      })
+    end,
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = true,
+    lazy = false,
     opts = {
-      colorscheme = "catppuccin",
+      terminal_colors = true, -- add neovim terminal colors
+      undercurl = true,
+      underline = true,
+      bold = true,
+      italic = {
+        strings = false,
+        emphasis = false,
+        comments = true,
+        operators = false,
+        folds = false,
+      },
+      inverse = true, -- invert background for search, diffs, statuslines and errors
+      contrast = "soft", -- can be "hard", "soft" or empty string
+      palette_overrides = {},
+      overrides = {},
+      dim_inactive = false,
+      transparent_mode = true,
     },
   },
 }

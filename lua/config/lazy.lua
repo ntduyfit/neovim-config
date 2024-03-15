@@ -38,14 +38,6 @@ require("lazy").setup({
       priority = 1000,
     },
     {
-      "kylechui/nvim-surround",
-      version = "*", -- Use for stability; omit to use `main` branch for the latest features
-      event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup()
-      end,
-    },
-    {
       "HiPhish/rainbow-delimiters.nvim",
       event = "BufAdd",
       init = function()
@@ -64,6 +56,10 @@ require("lazy").setup({
     },
     {
       "L3MON4D3/LuaSnip",
+      dependencies = { "rafamadriz/friendly-snippets" },
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
       keys = function()
         return {}
       end,
@@ -121,7 +117,79 @@ require("lazy").setup({
         panel = { enabled = false },
       },
     },
+    {
+      "okuuva/auto-save.nvim",
+      cmd = "ASToggle", -- optional for lazy loading on command
+      event = { "LazyFile" }, -- optional for lazy loading on trigger events
+      opts = {
+        enabled = true, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
+        execution_message = {
+          enabled = false,
+        },
+        trigger_events = { -- See :h events
+          immediate_save = { "BufLeave", "FocusLost" }, -- vim events that trigger an immediate save
+          defer_save = { "InsertLeave", "TextChanged" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
+          cancel_defered_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
+        },
+        condition = nil,
+        write_all_buffers = false, -- write all buffers when the current one meets `condition`
+        noautocmd = false, -- do not execute autocmds when saving
+        debounce_delay = 20000, -- delay after which a pending save is executed
+        debug = false,
+      },
+    },
+    {
+      "windwp/nvim-ts-autotag",
+      event = "LazyFile",
+      opts = {},
+    },
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      -- make sure mason installs the server
+      servers = {
+        ---@type lspconfig.options.tsserver
+        tsserver = {
+          keys = {
+            {
+              "<D-ø>",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.organizeImports.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Organize Imports",
+            },
+            {
+              "<D-π>",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { "source.removeUnused.ts" },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = "Remove Unused Imports",
+            },
+          },
+          ---@diagnostic disable-next-line: missing-fields
+          settings = {
+            completions = {
+              completeFunctionCalls = true,
+            },
+          },
+        },
+      },
+    },
+  },
+  colorscheme = "catppuccin",
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
