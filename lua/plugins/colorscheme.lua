@@ -1,5 +1,24 @@
 return {
   {
+    "rmehri01/onenord.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function() end,
+  },
+
+  {
+    "AlexvZyl/nordic.nvim",
+    enabled = false,
+    priority = 1000,
+    config = function()
+      require("nordic").setup({
+        transparent_bg = true,
+      })
+
+      require("nordic").load()
+    end,
+  },
+  {
     "folke/tokyonight.nvim",
     opts = {
       transparent = true,

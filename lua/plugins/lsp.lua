@@ -1,6 +1,12 @@
 return {
   "neovim/nvim-lspconfig",
   opts = {
+    inlay_hints = {
+      enabled = false,
+    },
+    codelens = {
+      enabled = true,
+    },
     -- make sure mason installs the server
     servers = {
       ---@type lspconfig.options.tsserver

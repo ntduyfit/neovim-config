@@ -145,8 +145,8 @@ require("lazy").setup({
     },
     {
       "f-person/git-blame.nvim",
-      event = "LazyFile"
-    }
+      event = "LazyFile",
+    },
   },
   colorscheme = "catppuccin",
   defaults = {

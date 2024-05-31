@@ -49,30 +49,26 @@ return {
     --
     --   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
     -- end,
-    opts = {
-
-      scope = { enabled = false },
-      indent = {
-        char = "▏",
-        tab_char = "▏",
-      },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
+    scope = { enabled = false },
+    indent = {
+      char = "▏",
+      tab_char = "▏",
+    },
+    exclude = {
+      filetypes = {
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "trouble",
+        "lazy",
+        "mason",
+        "notify",
+        "toggleterm",
+        "lazyterm",
       },
     },
-
     event = "LazyFile",
     main = "ibl",
     enabled = true,
