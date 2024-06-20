@@ -2,14 +2,17 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 local map = vim.keymap.set
-local Util = require("lazyvim.util")
 
 map({ "n", "v", "i" }, "<D-z>", "<cmd>u<CR>", { desc = "Undo" })
 map({ "n", "v" }, "<S-D-z>", "<cmd>red<CR>", { desc = "Undo" })
 map("i", "<D-Z>", "<cmd>red<CR>", { desc = "Undo" })
 
 map({ "n", "v", "i" }, "<C-`>", "<cmd>ToggleTerm<CR>", { desc = "Terminal" })
-map({ "n", "v", "i" }, "<D-w>", "<cmd>bd#<CR>", { desc = "Close buffer" })
+map({ "n", "v", "i" }, "<D-w>", LazyVim.ui.bufremove, { desc = "Close buffer" })
+map({ "n" }, "<leader>kw", function()
+  local buf = require("bufferline")
+  buf.close_others()
+end, { desc = "Close buffer" })
 
 map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move up" })
@@ -32,10 +35,10 @@ map({ "x", "n", "s" }, "<D-1>", function()
   end
 end, { desc = "File explorer" })
 
-map({ "n", "v", "i" }, "<D-p>", Util.telescope("files", { cwd = false }), { desc = "Find Files (root dir)" })
+map({ "n", "v", "i" }, "<D-p>", LazyVim.pick("files", { root = true }), { desc = "Find Files (root dir)" })
 
 map({ "n", "v", "i" }, "<C-6>", vim.lsp.buf.rename, { desc = "rename" })
 map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })
--- map({ "n", "v", "i" }, "<D-/>", "gcc", { desc = "Comment code" })
+map({ "n", "v", "i" }, "<D-/>", "gcc", { desc = "Comment code" })
 
 -- map({ "n", "v", "i" }, "<D-ø>", "<cmd>TypescriptOrganizeImports<CR>", { desc = "Optimize import" })

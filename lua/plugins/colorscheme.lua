@@ -31,7 +31,7 @@ return {
   {
     "navarasu/onedark.nvim",
     opts = {
-      style = "cool", -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+      style = "darker", -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
       transparent = true, -- Show/hide background
       term_colors = true, -- Change terminal color as per the selected theme style
       ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
@@ -146,7 +146,7 @@ return {
         -- Enable this will disable filter option
         day_night = {
           enable = false, -- turn off by default
-          day_filter = "pro", -- classic | octagon | pro | machine | ristretto | spectrum
+          day_filter = "octagon", -- classic | octagon | pro | machine | ristretto | spectrum
           night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
         },
         inc_search = "background", -- underline |

@@ -18,25 +18,12 @@ return {
               vim.lsp.buf.code_action({
                 apply = true,
                 context = {
-                  only = { "source.removeUnused.ts", "source.organizeImports.ts" },
+                  only = { "source.organizeImports" },
                   diagnostics = {},
                 },
               })
             end,
             desc = "Organize Imports",
-          },
-          {
-            "<D-i>",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.removeUnused.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Remove Unused Imports",
           },
         },
         ---@diagnostic disable-next-line: missing-fields
