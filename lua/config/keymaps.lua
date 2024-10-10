@@ -23,7 +23,8 @@ map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 map({ "i", "x", "n", "s" }, "<D-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map({ "i", "x", "n", "s" }, "<D-2>", "<cmd>Neotree focus git_status<CR>", { desc = "git" })
-map({ "x", "n", "s" }, "<D-1>", function()
+
+local toggleTree = function()
   local neotree = require("neo-tree.utils")
   local action = require("neo-tree.command")
   local path = vim.fn.getcwd()
@@ -33,11 +34,16 @@ map({ "x", "n", "s" }, "<D-1>", function()
   else
     action.execute({ toggle = false })
   end
-end, { desc = "File explorer" })
+end
 
-map({ "n", "v", "i" }, "<D-p>", LazyVim.pick("files", { root = true }), { desc = "Find Files (root dir)" })
+map({ "x", "n", "s" }, "<D-1>", toggleTree, { desc = "File explorer" })
+map({ "x", "n", "s" }, "<leader>o", toggleTree, { desc = "File explorer" })
 
-map({ "n", "v", "i" }, "<C-6>", vim.lsp.buf.rename, { desc = "rename" })
+map({ "n", "v", "i" }, "<D-p>", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
+map({ "n", "v" }, "<leader>ff", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
+map({ "n", "v" }, "<leader><space>", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
+
+-- map({ "n", "v", "i" }, "<leader>", vim.lsp.buf.rename, { desc = "rename" })
 map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })
 map({ "n", "v", "i" }, "<D-/>", "gcc", { desc = "Comment code" })
 

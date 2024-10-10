@@ -1,7 +1,14 @@
 return {
   {
+    "nordtheme/vim",
+    enabled = false,
+    lazy = false,
+    priority = 1000,
+  },
+  {
     "rmehri01/onenord.nvim",
     lazy = false,
+    enabled = false,
     priority = 1000,
     config = function() end,
   },
@@ -30,6 +37,7 @@ return {
   },
   {
     "navarasu/onedark.nvim",
+    enabled = false,
     opts = {
       style = "darker", -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
       transparent = true, -- Show/hide background
@@ -77,11 +85,13 @@ return {
   {
     "catppuccin/nvim",
     lazy = false,
+    enabled = true,
     priority = 1000,
     name = "catppuccin",
     opts = {
+      flavour = "macchiato",
       background = {
-        dark = "frappe",
+        dark = "macchiato",
         light = "latte",
       },
       transparent_background = true,
@@ -121,12 +131,49 @@ return {
         treesitter_context = true,
         which_key = true,
       },
+      highlight_overrides = {
+        macchiato = function(macchiato)
+          return {
+            ["@variable.member"] = { fg = macchiato.blue },
+            ["@variable"] = { fg = macchiato.yellow },
+            ["@constructor.typescript"] = { fg = macchiato.peach },
+            ["@type"] = { fg = macchiato.yellow },
+            ["@type.builtin"] = { fg = macchiato.peach },
+            ["@tag"] = { fg = macchiato.blue },
+            ["@tag.builtin.tsx"] = { fg = macchiato.blue },
+            ["@lsp.type.property"] = { fg = macchiato.blue },
+            ["@tag.delimiter"] = { fg = macchiato.blue },
+            ["@tag.attribute.tsx"] = { fg = macchiato.yellow, style = {} },
+            ["@lsp.type.interface.typescript"] = { fg = macchiato.yellow },
+            ["@lsp.type.interface.typescriptreact"] = { fg = macchiato.peach },
+            ["@string.special.url.tsx"] = { fg = macchiato.green, style = { "underline" } },
+            ["@attribute.typescript"] = { fg = macchiato.yellow },
+            ["@function"] = { fg = macchiato.blue },
+            ["@lsp.function.typescript"] = { link = "@function" },
+            ["@lsp.type.parameter.typescriptreact"] = { link = "@constant" },
+            ["@module"] = { fg = macchiato.maroon, style = {} },
+            ["@property.yaml"] = { fg = macchiato.blue },
+            ["@punctuation.bracket"] = { fg = macchiato.lavender },
+            ["@property.styled"] = { link = "@lsp.type.property" },
+            ["@property.class.styled"] = { link = "@variable" },
+            ["@spell.tsx"] = { fg = macchiato.lavender },
+            ["MiniIndentscopeSymbol"] = { fg = macchiato.sky },
+            ["DiagnosticUnnecessary"] = { fg = macchiato.blue },
+            ["@constant.bash"] = { fg = macchiato.blue },
+            ["@property.json"] = { fg = macchiato.blue },
+            ["CursorLine"] = { bg = macchiato.base },
+            ["Visual"] = { bg = macchiato.surface2 },
+            ["LspReferenceWrite"] = { bg = macchiato.surface0 },
+            ["LspReferenceText"] = { bg = macchiato.surface0 },
+          }
+        end,
+      },
     },
   },
   {
     "loctvl842/monokai-pro.nvim",
     lazy = false,
-    enabled = true,
+    enabled = false,
     config = function()
       require("monokai-pro").setup({
         transparent_background = true,
@@ -155,26 +202,69 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
-    config = true,
+    enabled = false,
+    config = function()
+      require("gruvbox").setup({
+        terminal_colors = true, -- add neovim terminal colors
+        undercurl = true,
+        underline = true,
+        bold = true,
+        italic = {
+          strings = false,
+          emphasis = false,
+          comments = true,
+          operators = false,
+          folds = false,
+        },
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "soft", -- can be "hard", "soft" or empty string
+        dim_inactive = true,
+        transparent_mode = true,
+      })
+    end,
+    enabled = false,
+  },
+  {
+    "sainnhe/gruvbox-material",
     lazy = false,
-    opts = {
-      terminal_colors = true, -- add neovim terminal colors
-      undercurl = true,
-      underline = true,
-      bold = true,
-      italic = {
-        strings = false,
-        emphasis = false,
-        comments = true,
-        operators = false,
-        folds = false,
-      },
-      inverse = true, -- invert background for search, diffs, statuslines and errors
-      contrast = "soft", -- can be "hard", "soft" or empty string
-      palette_overrides = {},
-      overrides = {},
-      dim_inactive = false,
-      transparent_mode = true,
-    },
+    enabled = false,
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_background = "hard"
+      vim.g.gruvbox_material_transparent_background = 2
+      vim.g.gruvbox_material_foreground = "mix"
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_statusline_style = "mix"
+    end,
+  },
+  {
+    "sainnhe/everforest",
+    lazy = false,
+    enabled = false,
+    priority = 1000,
+    config = function()
+      vim.g.everforest_background = "hard"
+      vim.g.everforest_transparent_background = 2
+      vim.g.everforest_foreground = "colored"
+      vim.g.everforest_enable_bold = 1
+      vim.g.everforest_statusline_style = "mix"
+      vim.g.everforest_better_performance = 1
+      vim.g.eveerforest_diagnostic_text_highlight = 1
+    end,
+  },
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("everforest").setup({
+        background = "hard",
+        italics = true,
+        disable_italic_comments = false,
+        sign_column_background = "none",
+        transparent_background_level = 2,
+      })
+    end,
   },
 }

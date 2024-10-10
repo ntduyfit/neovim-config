@@ -1,9 +1,14 @@
 return {
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- },
   {
     "styled-components/vim-styled-components",
     enabled = true,
     lazy = true,
-    event = "BufAdd",
+    event = "LazyFile",
   },
   {
     "akinsho/toggleterm.nvim",
@@ -13,9 +18,22 @@ return {
     priority = 1000,
   },
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    opts = {
+      suggestion = { enabled = true, auto_trigger = true },
+      panel = { enabled = false },
+    },
+  },
+  {
     "hrsh7th/nvim-cmp",
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
+      opts.experimental = {
+        ghost_text = false,
+      }
+
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -57,22 +75,22 @@ return {
   },
   {
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle", -- optional for lazy loading on command
+    cmd = "ASToggle",       -- optional for lazy loading on command
     event = { "LazyFile" }, -- optional for lazy loading on trigger events
     opts = {
-      enabled = true, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
+      enabled = true,       -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
       execution_message = {
         enabled = false,
       },
-      trigger_events = { -- See :h events
-        immediate_save = { "BufLeave", "FocusLost" }, -- vim events that trigger an immediate save
+      trigger_events = {                               -- See :h events
+        immediate_save = { "BufLeave", "FocusLost" },  -- vim events that trigger an immediate save
         defer_save = { "InsertLeave", "TextChanged" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
-        cancel_defered_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
+        cancel_defered_save = { "InsertEnter" },       -- vim events that cancel a pending deferred save
       },
       condition = nil,
-      write_all_buffers = false, -- write all buffers when the current one meets `condition`
-      noautocmd = false, -- do not execute autocmds when saving
-      debounce_delay = 20000, -- delay after which a pending save is executed
+      write_all_buffers = true, -- write all buffers when the current one meets `condition`
+      noautocmd = false,        -- do not execute autocmds when saving
+      debounce_delay = 20000,   -- delay after which a pending save is executed
       debug = false,
     },
   },
