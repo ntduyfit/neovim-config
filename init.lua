@@ -40,7 +40,7 @@ if vim.g.neovide then
   vim.g.experimental_layer_grouping = true
   -- vim.g.neovide_profiler = true
 
-  vim.cmd.colorscheme("catppuccin")
+  vim.cmd.colorscheme("everforest")
   vim.api.nvim_set_hl(0, "Normal", { bg = "#24273a", fg = "#b7bdf8" })
 elseif not vim.g.vscode then
   vim.cmd.colorscheme("catppuccin")
@@ -50,7 +50,16 @@ elseif not vim.g.vscode then
     "r:hor50-Cursor/lCursor-blinkwait100-blinkon100-blinkoff100",
   }, ",")
 
-  vim.opt.smartindent = false
+  -- vim.opt.tabstop = 2
+  -- vim.opt.softtabstop = 2
+  -- vim.opt.shiftwidth = 2
+  -- vim.opt.expandtab = true
+  -- vim.opt.autoindent = true
 end
 
+vim.o.background = "dark"
+
+-- vim.o.updatetime = 300
+--vim.cmd([[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, max_width=80})]])
+vim.opt.smartindent = false
 -- vim.b.autoformat = true

@@ -1,9 +1,12 @@
 return {
   "hrsh7th/nvim-cmp",
-  opts = {
-    performance = {
-      trigger_debounce_time = 400,
-      throttle_timeout = 80,
-    },
-  }
+  dependencies = { "hrsh7th/cmp-emoji" },
+  opts = function(_, opts)
+    table.insert(opts.sources, { name = "emoji" })
+    -- opts.performance = {
+    --   -- max_view_entries = 14,
+    --   debounce = 300,
+    --   throttle = 200,
+    -- }
+  end,
 }

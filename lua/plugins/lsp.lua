@@ -2,7 +2,14 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     codelens = {
-      enabled = true,
+      enabled = false,
+    },
+    diagnostics = {
+      float = {
+        enabled = true,
+        border = "rounded",
+      },
+      virtual_text = false,
     },
     setup = {
       tailwindcss = function(_, opts)
@@ -32,9 +39,6 @@ return {
       vtsls = {
         settings = {
           typescript = {
-            updateImportsOnFileMove = {
-              enabled = "always",
-            },
             preferGoToSourceDefinition = {
               enabled = false,
             },
@@ -47,8 +51,6 @@ return {
             },
           },
           vtsls = {
-            autoUseWorkspaceTsdk = true,
-            enableMoveToFileCodeAction = true,
             tsserver = {
               globalPlugins = {
                 {

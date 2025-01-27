@@ -7,8 +7,10 @@ map({ "n", "v", "i" }, "<D-z>", "<cmd>u<CR>", { desc = "Undo" })
 map({ "n", "v" }, "<S-D-z>", "<cmd>red<CR>", { desc = "Undo" })
 map("i", "<D-Z>", "<cmd>red<CR>", { desc = "Undo" })
 
+map({ "n", "v" }, "[[", "<C-o>", { desc = "Jump to previous" })
+map({ "n", "v" }, "]]", "<C-i>", { desc = "Jump to next" })
+
 map({ "n", "v", "i" }, "<C-`>", "<cmd>ToggleTerm<CR>", { desc = "Terminal" })
-map({ "n", "v", "i" }, "<D-w>", LazyVim.ui.bufremove, { desc = "Close buffer" })
 map({ "n" }, "<leader>kw", function()
   local buf = require("bufferline")
   buf.close_others()
@@ -41,7 +43,12 @@ map({ "x", "n", "s" }, "<leader>o", toggleTree, { desc = "File explorer" })
 
 map({ "n", "v", "i" }, "<D-p>", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
 map({ "n", "v" }, "<leader>ff", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
-map({ "n", "v" }, "<leader><space>", LazyVim.pick("files", { cwd = vim.fn.getcwd() }), { desc = "Find Files (root dir)" })
+map(
+  { "n", "v" },
+  "<leader><space>",
+  LazyVim.pick("files", { cwd = vim.fn.getcwd() }),
+  { desc = "Find Files (root dir)" }
+)
 
 -- map({ "n", "v", "i" }, "<leader>", vim.lsp.buf.rename, { desc = "rename" })
 map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })

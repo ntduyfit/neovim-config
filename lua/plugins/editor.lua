@@ -1,8 +1,79 @@
 return {
+  {
+    "axelvc/template-string.nvim",
+    event = "LazyFile",
+    config = function()
+      require("template-string").setup({
+        filetypes = {
+          "html",
+          "typescript",
+          "javascript",
+          "typescriptreact",
+          "javascriptreact",
+          "vue",
+          "svelte",
+        }, -- filetypes where the plugin is active
+        jsx_brackets = true, -- must add brackets to JSX attributes
+        remove_template_string = false, -- remove backticks when there are no template strings
+        restore_quotes = {
+          -- quotes used when "remove_template_string" option is enabled
+          normal = [[']],
+          jsx = [["]],
+        },
+      })
+    end,
+  },
   -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-  --   opts = {},
+  --   "saghen/blink.cmp",
+  --   optional = true,
+  --   specs = {
+  --     {
+  --       "zbirenbaum/copilot.lua",
+  --       event = "InsertEnter",
+  --       opts = {
+  --         suggestion = {
+  --           enabled = true,
+  --           auto_trigger = true,
+  --           keymap = { accept = false },
+  --         },
+  --       },
+  --     },
+  --   },
+  --   ---@module 'blink.cmp'
+  --   ---@type blink.cmp.Config
+  --   opts = {
+  --     windows = {
+  --       autocomplete = {
+  --         border = "rounded",
+  --       },
+  --       ghost_text = {
+  --         enabled = false,
+  --       },
+  --       documentation = {
+  --         max_width = 80,
+  --       },
+  --       signaturure_help = {
+  --         max_width = 80,
+  --       },
+  --     },
+  --     keymap = {
+  --       ["<Tab>"] = {
+  --         function(cmp)
+  --           if cmp.is_in_snippet() then
+  --             return cmp.accept()
+  --           elseif require("copilot.suggestion").is_visible() then
+  --             LazyVim.create_undo()
+  --             require("copilot.suggestion").accept()
+  --             return true
+  --           else
+  --             return cmp.select_and_accept()
+  --           end
+  --         end,
+  --         "snippet_forward",
+  --         "fallback",
+  --       },
+  --     },
+  --   },
   -- },
   {
     "styled-components/vim-styled-components",
@@ -27,13 +98,47 @@ return {
     },
   },
   {
+    "onsails/lspkind.nvim",
+    lazy = false,
+    priority = 100,
+  },
+  {
     "hrsh7th/nvim-cmp",
+    ---module 'nvim-cmp'
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       opts.experimental = {
         ghost_text = false,
       }
+      opts.window = {
+        completion = {
+          border = "rounded",
+          winblend = 1,
+          winhighlight = "Normal:BlinkMenu,FloatBorder:BlinkBorder,CursorLine:BlinkSelection",
+          col_offset = -3,
+          side_padding = 0,
+          scrollbar = false,
+        },
+        documentation = {
+          border = "rounded",
+          max_width = 80,
+          max_height = 60,
+          winblend = 1,
+          winhighlight = "Normal:BlinkMenu,FloatBorder:BlinkBorder,Search:None",
+        },
+      }
 
+      opts.formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+          local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+          kind.kind = " " .. (strings[1] or "") .. " "
+          kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+          return kind
+        end,
+      }
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -75,32 +180,63 @@ return {
   },
   {
     "okuuva/auto-save.nvim",
-    cmd = "ASToggle",       -- optional for lazy loading on command
+    cmd = "ASToggle", -- optional for lazy loading on command
     event = { "LazyFile" }, -- optional for lazy loading on trigger events
     opts = {
-      enabled = true,       -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
-      execution_message = {
-        enabled = false,
-      },
-      trigger_events = {                               -- See :h events
-        immediate_save = { "BufLeave", "FocusLost" },  -- vim events that trigger an immediate save
+      nabled = true, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
+      trigger_events = { -- See :h events
+        immediate_save = { "BufLeave", "FocusLost" }, -- vim events that trigger an immediate save
         defer_save = { "InsertLeave", "TextChanged" }, -- vim events that trigger a deferred save (saves after `debounce_delay`)
-        cancel_defered_save = { "InsertEnter" },       -- vim events that cancel a pending deferred save
+        cancel_deferred_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
       },
       condition = nil,
       write_all_buffers = true, -- write all buffers when the current one meets `condition`
-      noautocmd = false,        -- do not execute autocmds when saving
-      debounce_delay = 20000,   -- delay after which a pending save is executed
+      noautocmd = false, -- do not execute autocmds when saving
+      debounce_delay = 20000, -- delay after which a pending save is executed
       debug = false,
     },
   },
   {
     "windwp/nvim-ts-autotag",
     event = "LazyFile",
-    opts = {},
+    opts = {
+      opts = {
+        enable_close = true,
+        enable_rename = true,
+        enable_close_on_slash = true,
+      },
+    },
   },
   {
     "f-person/git-blame.nvim",
     event = "LazyFile",
+    opts = {
+      enabled = false,
+    },
   },
+  -- {
+  --   "nmac427/guess-indent.nvim",
+  --   event = "LazyFile",
+  --   config = function()
+  --     require("guess-indent").setup({
+  --       auto_cmd = true, -- Set to false to disable automatic execution
+  --       override_editorconfig = false, -- Set to true to override settings set by .editorconfig
+  --       buftype_exclude = { -- A list of buffer types for which the auto command gets disabled
+  --         "help",
+  --         "nofile",
+  --         "terminal",
+  --         "prompt",
+  --       },
+  --       on_tab_options = { -- A table of vim options when tabs are detected
+  --         ["expandtab"] = false,
+  --       },
+  --       on_space_options = { -- A table of vim options when spaces are detected
+  --         ["expandtab"] = true,
+  --         ["tabstop"] = "detected", -- If the option value is 'detected', The value is set to the automatically detected indent size.
+  --         ["softtabstop"] = "detected",
+  --         ["shiftwidth"] = "detected",
+  --       },
+  --     })
+  --   end,
+  -- },
 }
