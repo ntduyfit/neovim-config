@@ -2,7 +2,7 @@
 --
 require("config.lazy")
 if vim.g.neovide then
-  vim.o.guifont = "SF Mono Ligatures:h14:b"
+  vim.o.guifont = "Google Sans Mono Nerd,SF Mono:h14:b:#e-antialias"
   vim.opt.linespace = 12
   -- vim.g.autoformat = false
   vim.g.neovide_padding_top = 0

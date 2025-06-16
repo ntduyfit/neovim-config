@@ -1,6 +1,7 @@
 return {
   {
     "folke/noice.nvim",
+    enabled = true,
     opts = {
       messages = {
         enabled = true,
@@ -68,9 +69,5 @@ return {
     ]]
       dashboard.section.header.val = vim.split(logo, "\n")
     end,
-  },
-  {
-    "rcarriga/nvim-notify",
-    opts = {},
   },
 }

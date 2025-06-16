@@ -145,7 +145,7 @@ return {
             if copilot.is_visible() then
               copilot.accept_line()
               return true
-            elseif luasnip.expand_or_jumpable() then
+            elseif luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
               return true
             elseif cmp.is_visible() then

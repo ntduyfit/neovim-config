@@ -118,7 +118,7 @@ return {
             ["BlinkIndentPink"] = { fg = macchiato.pink },
             ["BlinkIndentMauve"] = { fg = macchiato.mauve },
             ["BlinkIndentFlamingo"] = { fg = macchiato.flamingo },
-            ["SnacksIndent"] = { fg = macchiato.surface1 },
+            ["SnacksIndent"] = { fg = macchiato.surface0 },
           }
         end,
       },

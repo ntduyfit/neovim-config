@@ -36,22 +36,9 @@ map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 map({ "i", "x", "n", "s" }, "<D-s>", "<cmd>wa<cr><esc>", { desc = "Save file" })
+map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>wa<cr><esc>", { desc = "Save file" })
 map({ "i", "x", "n", "s" }, "<D-2>", "<cmd>Neotree focus git_status<CR>", { desc = "git" })
 
-local toggleTree = function()
-  local neotree = require("neo-tree.utils")
-  local action = require("neo-tree.command")
-  local path = vim.fn.getcwd()
-
-  if neotree.is_hidden(path) then
-    action.execute({ toggle = true, dir = vim.loop.cwd() })
-  else
-    action.execute({ toggle = false })
-  end
-end
-
-map({ "x", "n", "s" }, "<D-1>", toggleTree, { desc = "File explorer" })
-
 -- map({ "n", "v", "i" }, "<leader>", vim.lsp.buf.rename, { desc = "rename" })
-map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })
+-- map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })
 -- map({ "n", "v", "i" }, "<D-/>", "gcc", { desc = "Comment code" })
