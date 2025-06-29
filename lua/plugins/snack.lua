@@ -56,6 +56,8 @@ return {
           else
             if not explorer_pickers[1]:is_focused() then
               explorer_pickers[1]:focus()
+            else
+              vim.cmd("normal! <C-w>h")
             end
           end
         end,

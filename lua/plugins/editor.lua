@@ -140,19 +140,14 @@ return {
         ["<Tab>"] = {
           function(cmp)
             local copilot = require("copilot.suggestion")
-            local luasnip = require("luasnip")
 
             if copilot.is_visible() then
               copilot.accept_line()
               return true
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-              return true
-            elseif cmp.is_visible() then
-              cmp.select_next()
-              return true
             end
           end,
+          "snippet_forward",
+          "select_next",
           "fallback",
         },
       },
@@ -301,4 +296,22 @@ return {
       })
     end,
   },
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   after = "catppuccin",
+  --   ---@module 'bufferline'
+  --   ---@params opts bufferline.Config
+  --   -- opts = function(_, opts)
+  --   --   -- vim.api.nvim_set_hl(0, "BufferLineFill", { fg = "#ffffff" })
+  --   --   -- opts.highlights = require("catppuccin.groups.integrations.bufferline").get({
+  --   --   --   custom = {
+  --   --   --     all = {
+  --   --   --       fill = { bg = mocha.base },
+  --   --   --     },
+  --   --   --   },
+  --   --   -- })
+  --   --   opts.options.always_show_bufferline = true
+  --   --   opts.options.themable = true
+  --   -- end,
+  -- },
 }

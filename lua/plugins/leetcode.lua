@@ -5,7 +5,7 @@ return {
     lazy = leet_arg ~= vim.fn.argv()[1],
     opts = {
       arg = leet_arg,
-      lang = "java",
+      lang = "typescript",
       injector = { ---@type table<lc.lang, lc.inject>
         ["cpp"] = {
           before = { "#include <bits/stdc++.h>", "using namespace std;" },
@@ -19,7 +19,8 @@ return {
     build = ":TSUpdate html",
     dependencies = {
       -- "nvim-telescope/telescope.nvim",
-      -- "nvim-lua/plenary.nvim", -- required by telescope
+      "ibhagwan/fzf-lua",
+      "nvim-lua/plenary.nvim", -- required by telescope
       "MunifTanjim/nui.nvim",
       "nvim-treesitter/nvim-treesitter",
       "rcarriga/nvim-notify",

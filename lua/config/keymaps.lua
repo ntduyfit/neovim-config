@@ -42,3 +42,4 @@ map({ "i", "x", "n", "s" }, "<D-2>", "<cmd>Neotree focus git_status<CR>", { desc
 -- map({ "n", "v", "i" }, "<leader>", vim.lsp.buf.rename, { desc = "rename" })
 -- map({ "n", "v", "i" }, "<A-CR>", vim.lsp.buf.code_action, { desc = "Code Action" })
 -- map({ "n", "v", "i" }, "<D-/>", "gcc", { desc = "Comment code" })
+vim.keymap.del("n", "<leader>l")

@@ -1,8 +1,63 @@
 return {
   {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "catppuccin",
+    },
+  },
+
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+    enabled = false,
+    -- opts = {
+    --   style = "moon",
+    --   transparent = true,
+    --   ---@module "tokyonight",
+    --   ---@param highlights tokyonight.Highlights
+    --   ---@param colors ColorScheme
+    --   on_highlights = function(highlights, colors)
+    --     highlights.NormalFloat = { bg = "none" }
+    --     highlights.SnacksPickerBoxTitle = { fg = colors.orange, bg = "none" }
+    --     highlights.SnacksPickerBorder = { fg = colors.blue2, bg = "none" }
+    --     highlights.SnacksPickerCode = { fg = "#82aaff", bg = "none" }
+    --     highlights.FloatTitle = { fg = colors.blue2, bg = "none" }
+    --     highlights.SnacksPickerInputBorder = { fg = colors.blue, bg = "none" }
+    --     highlights.SnacksPickerInputTitle = { fg = colors.orange, bg = "none" }
+    --     highlights.SnacksPickerPathHidden = { fg = colors.fg_sidebar }
+    --
+    --     highlights["SnackIndentBlue"] = { fg = colors.blue2 }
+    --     highlights["SnackIndentLavender"] = { fg = colors.green2 }
+    --     highlights["SnackIndentSapphire"] = { fg = colors.blue5 }
+    --     highlights["SnackIndentSky"] = { fg = colors.blue6 }
+    --     highlights["SnackIndentGreen"] = { fg = colors.green }
+    --     highlights["SnackIndentTeal"] = { fg = colors.green1 }
+    --     highlights["SnackIndentYellow"] = { fg = colors.yellow }
+    --     highlights["SnackIndentPeach"] = { fg = colors.orange }
+    --     highlights["SnackIndentMaroon"] = { fg = colors.green1 }
+    --     highlights["SnackIndentRed"] = { fg = colors.red1 }
+    --     highlights["SnackIndentPink"] = { fg = colors.purple }
+    --     highlights["SnackIndentMauve"] = { fg = colors.cyan }
+    --     highlights["SnackIndentFlamingo"] = { fg = colors.magenta }
+    --     highlights["SnacksIndent"] = { fg = colors.fg_gutter }
+    --
+    --     highlights["BlinkCmpMenu"] = { bg = "none", fg = colors.fg_float }
+    --     highlights["BlinkCmpMenuBorder"] = { bg = "none", fg = colors.blue7 }
+    --
+    --     highlights["BlinkCmpMenuSelection"] = { bg = colors.green, fg = colors.bg }
+    --     highlights["BlinkCmpScrollBarThumb"] = {
+    --       bg = colors.green,
+    --     }
+    --     highlights["BlinkCmpSignatureHelp"] = { bg = "none" }
+    --     highlights["BlinkCmpSignatureHelpBorder"] = { fg = colors.blue7, bg = "none" }
+    --     highlights["BlinkCmpDoc"] = { bg = "none", blend = 5 }
+    --     highlights["BlinkCmpDocBorder"] = { fg = colors.blue7, bg = "none" }
+    --   end,
+    -- },
+  },
+  {
     "catppuccin/nvim",
     lazy = false,
-    enabled = true,
     priority = 1000,
     name = "catppuccin",
     opts = {
@@ -92,18 +147,17 @@ return {
             ["LspReferenceText"] = { bg = macchiato.surface0 },
             ["@lsp.type.parameter.typescript"] = { fg = macchiato.peach },
             ["Cursor"] = { bg = macchiato.flamingo },
-            ["BlinkCmpMenuSelection"] = { bg = macchiato.mauve, fg = macchiato.surface0, blend = 10 },
-            ["BlinkCmpMenu"] = { bg = macchiato.surface0, blend = 5 },
-            ["BlinkCmpMenuBorder"] = { fg = macchiato.flamingo, bg = macchiato.surface0, blend = 10 },
-            ["NeominimapCursorLine"] = { bg = macchiato.base, blend = 2 },
+            ["BlinkCmpMenuSelection"] = { bg = macchiato.green, fg = macchiato.surface0 },
+            ["BlinkCmpMenu"] = { bg = "none", link = "none" },
+            ["BlinkCmpMenuBorder"] = { fg = macchiato.lavender, bg = "none" },
+            ["NeominimapCursorLine"] = { bg = "none" },
             ["BlinkCmpScrollBarThumb"] = {
               bg = macchiato.pink,
-              blend = 10,
             },
-            ["BlinkCmpSignatureHelp"] = { bg = macchiato.surface0, blend = 5 },
-            ["BlinkCmpSignatureHelpBorder"] = { fg = macchiato.flamingo, bg = macchiato.surface0, blend = 10 },
-            ["BlinkCmpDoc"] = { bg = macchiato.surface0, blend = 5 },
-            ["BlinkCmpDocBorder"] = { fg = macchiato.flamingo, bg = macchiato.surface0, blend = 10 },
+            ["BlinkCmpSignatureHelp"] = { bg = "none" },
+            ["BlinkCmpSignatureHelpBorder"] = { fg = macchiato.flamingo, bg = "none" },
+            ["BlinkCmpDoc"] = { bg = "none" },
+            ["BlinkCmpDocBorder"] = { fg = macchiato.flamingo, bg = "none" },
 
             ["SnackIndentBlue"] = { fg = macchiato.blue },
             ["BlinkIndentLavender"] = { fg = macchiato.lavender },
@@ -118,7 +172,25 @@ return {
             ["BlinkIndentPink"] = { fg = macchiato.pink },
             ["BlinkIndentMauve"] = { fg = macchiato.mauve },
             ["BlinkIndentFlamingo"] = { fg = macchiato.flamingo },
-            ["SnacksIndent"] = { fg = macchiato.surface0 },
+            ["SnacksIndent"] = { fg = macchiato.surface1 },
+            ["SnacksPicker"] = { bg = "none" },
+            -- ["SnacksPickerBorder"] = { fg = macchiato.lavender, bg = "none" },
+            ["FloatTitle"] = { fg = macchiato.blue, bg = "none" },
+            ["SnacksPickerBoxTitle"] = { fg = macchiato.blue, bg = "none" },
+            ["SnacksPickerInputBorder"] = { fg = macchiato.blue, bg = "none" },
+            ["SnacksPickerInputTitle"] = { fg = macchiato.orange, bg = "none" },
+            ["SnacksPickerPathHidden"] = { fg = macchiato.subtext1 },
+            ["SnacksPickerFile"] = { fg = macchiato.lavender },
+            ["SnacksPickerCursorLine"] = { bg = macchiato.surface0, fg = macchiato.green },
+            ["SnacksPickerListCursorLine"] = { bg = macchiato.surface0, fg = macchiato.green },
+            ["SnacksPickerListBorder"] = { bg = "none", fg = macchiato.blue },
+            ["SnacksPickerBorder"] = { bg = "none", fg = macchiato.blue },
+            ["NormalSB"] = { bg = "none" },
+            ["Normal"] = { bg = "none" },
+            ["FloatBorder"] = { bg = "none" },
+            ["NormalFloat"] = { bg = "none" },
+            ["NoiceFormatProgressDone"] = { bg = macchiato.blue, fg = macchiato.base },
+            ["NoiceFormatProgressTodo"] = { fg = macchiato.lavender },
           }
         end,
       },

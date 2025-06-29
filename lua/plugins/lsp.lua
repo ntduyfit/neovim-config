@@ -16,6 +16,24 @@ return {
       virtual_text = false,
     },
     setup = {
+      oxlint = function(_, opts)
+        local lspconfig = require("lspconfig")
+        lspconfig.oxlint.setup(opts)
+        return true
+      end,
+      -- mmdc = function(_, opts)
+      --   local lspconfig = require("lspconfig")
+      --   local configs = require("lspconfig.configs")
+      --
+      --   if not configs.mmdc then
+      --     configs.mmdc = {
+      --       default_config = {},
+      --     }
+      --   end
+      --
+      --   lspconfig.mmdc.setup(opts)
+      --   return true
+      -- end,
       -- omnisharp = function(_, opts)
       --   opt.
       -- end,
@@ -61,18 +79,84 @@ return {
       end,
     },
     servers = {
+      oxlint = {
+        settings = {
+          oxc = {
+            enable = true,
+            requiredConfig = true,
+          },
+        },
+      },
+      -- mmdc = {
+      --   enabled = true,
+      -- },
       omnisharp = {
-        cmd = { "dotnet", "/Users/ntduyfit/.omnisharp/bin/OmniSharp.dll" },
+        enabled = true,
+        cmd = {
+          vim.fn.expand("~/.omnisharp/bin/OmniSharp"),
+          "--languageserver",
+          "--hostPID",
+          tostring(vim.fn.getpid()),
+        },
+        on_init = function(client, bufnr)
+          -- Smooth simulated LSP progress
+          local token = "omnisharp-loading"
+          local title = "OmniSharp Initializing"
 
-        -- handlers = {
-        --   ["textDocument/definition"] = function(...)
-        --     return require("omnisharp_extended").handler(...)
-        --   end,
-        -- },
+          -- Start progress
+          vim.lsp.handlers["$/progress"](nil, {
+            token = token,
+            value = {
+              kind = "begin",
+              title = title,
+              message = "Starting...",
+              percentage = 0,
+            },
+          }, { client_id = client.id })
 
-        enable_roslyn_analyzers = true,
-        organize_imports_on_format = true,
-        enable_import_completion = true,
+          -- Animate percentage from 0 → 100 over ~2 seconds
+          local percent = 0
+          local timer = vim.loop.new_timer()
+
+          timer:start(
+            0,
+            120,
+            vim.schedule_wrap(function()
+              percent = percent + math.random(3, 7)
+
+              if percent >= 100 then
+                -- End progress
+                vim.lsp.handlers["$/progress"](nil, {
+                  token = token,
+                  value = {
+                    kind = "end",
+                    message = "Ready!",
+                  },
+                }, { client_id = client.id })
+                timer:stop()
+                return
+              end
+
+              -- Update progress
+              vim.lsp.handlers["$/progress"](nil, {
+                token = token,
+                value = {
+                  kind = "report",
+                  message = "Processing... " .. percent .. "%",
+                  percentage = percent,
+                },
+              }, { client_id = client.id })
+            end)
+          )
+        end,
+
+        settings = {
+          omnisharp = {
+            enable_roslyn_analyzers = true,
+            organize_imports_on_format = true,
+            enable_import_completion = true,
+          },
+        },
       },
       vtsls = {
         enabled = true,
@@ -85,9 +169,9 @@ return {
               importModuleSpecifierEnding = "minimal",
               importModuleSpecifier = "shortest",
               autoImportUseTypeOnly = true,
-              renameMatchingJsxTags = true,
+              -- renameMatchingJsxTags = true,
               preferTypeOnlyAutoImports = true,
-              renameMatchingTsxTags = true,
+              -- renameMatchingTsxTags = true,
             },
             tsserver = {
               maxTsServerMemory = 8192,
