@@ -29,8 +29,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = { "torpedo", "sonicboom" }
   vim.g.neovide_confirm_quit = true
   vim.g.neovide_cursor_smooth_blink = true
-  vim.g.neovide_cursor_animation_length = 0.15
-  vim.g.neovide_cursor_trail_size = 1
+  vim.g.neovide_cursor_animation_length = 0.1
+  vim.g.neovide_cursor_trail_size = 0.2
   vim.g.neovide_cursor_animate_in_insert_mode = true
   vim.g.neovide_refresh_rate = 144
 
@@ -45,7 +45,7 @@ if vim.g.neovide then
   -- vim.g.neovide_profiler = true
   --
   -- Helper function for transparency formatting
-  vim.g.transparency = 0.95
+  vim.g.transparency = 0.9
   local alpha = function()
     return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
   end
@@ -60,6 +60,19 @@ if vim.g.neovide then
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
+  vim.keymap.set(
+    "n",
+    "<D-=>",
+    ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>",
+    { silent = true }
+  )
+  vim.keymap.set(
+    "n",
+    "<D-->",
+    ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>",
+    { silent = true }
+  )
+  vim.keymap.set("n", "<D-0>", ":lua vim.g.neovide_scale_factor = 1<CR>", { silent = true })
 elseif not vim.g.vscode then
 
   -- vim.opt.tabstop = 2

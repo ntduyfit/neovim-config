@@ -14,15 +14,17 @@ return {
         "fc",
         fmt(
           [[
-          const {}: React.FC = () => {{
+          type {}Props = {{}};
+            
+          export const {}: React.FC<{}Props> = () => {{
             return (
               <div>{}</div>
             );
           }};
 
-          export default {};
           ]],
           {
+            rep(1),
             i(1),
             rep(1),
             rep(1),
@@ -38,15 +40,17 @@ return {
           [[
           'use client';
 
-          const {}: React.FC = () => {{
+          type {}Props = {{}};
+
+          export const {}: React.FC<{}Props> = () => {{
             return (
               <div>{}</div>
             );
           }};
 
-          export default {};
           ]],
           {
+            rep(1),
             i(1),
             rep(1),
             rep(1),
@@ -57,18 +61,19 @@ return {
 
     ls.add_snippets("typescriptreact", {
       s(
-        "ucb",
+        "hook",
         fmt(
           [[
-        const {} = useCallback(() => {{
+        const {} = use{}(() => {{
           {}
         }}, {})
         
         ]],
           {
             i(1),
-            i(3),
             i(2),
+            i(5),
+            i(3),
           }
         )
       ),

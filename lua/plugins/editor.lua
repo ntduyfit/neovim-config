@@ -126,7 +126,7 @@ return {
             },
             columns = {
               { "label", "label_description", gap = 2 },
-              { "kind_icon", "kind", gap = 1 },
+              { "kind_icon", "kind", "source_name", gap = 1 },
             },
           },
         },
@@ -135,6 +135,22 @@ return {
       -- ensure you have the `snippets` source (enabled by default)
       sources = {
         default = { "snippets", "lsp", "buffer", "path" },
+        providers = {
+          snippets = {
+            score_offset = 4,
+          },
+          lsp = {
+            score_offset = 3,
+          },
+          path = {
+            min_keyword_length = 2,
+            score_offset = 2,
+          },
+          buffer = {
+            min_keyword_length = 4,
+            score_offset = 1,
+          },
+        },
       },
       keymap = {
         ["<Tab>"] = {
@@ -313,5 +329,11 @@ return {
   --   --   opts.options.always_show_bufferline = true
   --   --   opts.options.themable = true
   --   -- end,
+  -- },
+  -- {
+  --   "catgoose/nvim-colorizer.lua",
+  --   event = "BufReadPre",
+  --   opts = { -- set to setup table
+  --   },
   -- },
 }

@@ -26,7 +26,7 @@ map("i", "<D-Z>", "<cmd>red<CR>", { desc = "Undo" })
 map({ "n", "v" }, "[[", "<C-o>", { desc = "Jump to previous" })
 map({ "n", "v" }, "]]", "<C-i>", { desc = "Jump to next" })
 
-map({ "n", "v", "i" }, "<C-`>", "<cmd>ToggleTerm<CR>", { desc = "Terminal" })
+-- map({ "n", "v", "i" }, "<C-`>", "<cmd>ToggleTerm<CR>", { desc = "Terminal" })
 
 map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move down" })
 map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move up" })

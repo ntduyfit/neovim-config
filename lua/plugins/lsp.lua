@@ -21,29 +21,18 @@ return {
         lspconfig.oxlint.setup(opts)
         return true
       end,
-      -- mmdc = function(_, opts)
-      --   local lspconfig = require("lspconfig")
-      --   local configs = require("lspconfig.configs")
-      --
-      --   if not configs.mmdc then
-      --     configs.mmdc = {
-      --       default_config = {},
-      --     }
-      --   end
-      --
-      --   lspconfig.mmdc.setup(opts)
-      --   return true
-      -- end,
-      -- omnisharp = function(_, opts)
-      --   opt.
-      -- end,
+
       tailwindcss = function(_, opts)
         opts.settings = {
           tailwindCSS = {
             classAttributes = { "class", "className", "ngClass", "class:list", "icon" },
+            classFunctions = { "cn", "cva", "cx", "clsx" },
             experimental = {
               classRegex = {
                 "className\\:\\s*'([^']*)'",
+                -- "(?<=cva\\([\\s\\S]*?)[\"']([^\"']+)[\"']",
+                -- "(?<=cx\\([\\s\\S]*?)[\"']([^\"']+)[\"']",
+                { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
                 "icon\\:\\s*'([^']*)'",
               },
             },
@@ -79,6 +68,7 @@ return {
       end,
     },
     servers = {
+      html = { filetypes = { "html", "svg" } },
       oxlint = {
         settings = {
           oxc = {
@@ -165,12 +155,19 @@ return {
             maxTsServerMemory = 8192,
           },
           typescript = {
+            suggest = {
+              autoImports = true,
+            },
+            updateImportsOnFileMove = {
+              enabled = "always",
+            },
             preferences = {
               importModuleSpecifierEnding = "minimal",
               importModuleSpecifier = "shortest",
               autoImportUseTypeOnly = true,
               -- renameMatchingJsxTags = true,
               preferTypeOnlyAutoImports = true,
+              quoteStyle = "single",
               -- renameMatchingTsxTags = true,
             },
             tsserver = {
@@ -193,7 +190,7 @@ return {
               maxInlayHintLength = 6,
               completion = {
                 enableServerSideFuzzyMatch = true,
-                entriesLimit = 10,
+                entriesLimit = 30,
               },
             },
             tsserver = {
