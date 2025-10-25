@@ -60,6 +60,7 @@ return {
     lazy = false,
     priority = 1000,
     name = "catppuccin",
+    optional = true,
     opts = {
       flavour = "macchiato",
       background = {

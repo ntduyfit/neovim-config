@@ -164,11 +164,8 @@ return {
             preferences = {
               importModuleSpecifierEnding = "minimal",
               importModuleSpecifier = "shortest",
-              autoImportUseTypeOnly = true,
-              -- renameMatchingJsxTags = true,
               preferTypeOnlyAutoImports = true,
               quoteStyle = "single",
-              -- renameMatchingTsxTags = true,
             },
             tsserver = {
               maxTsServerMemory = 8192,
@@ -210,6 +207,15 @@ return {
           },
         },
       },
+      ruby_lsp = {
+        mason = false,
+        cmd_env = { RBENV_VERSION = "3.4.3" },
+        cmd = { vim.fn.expand("~/.rbenv/shims/ruby-lsp") },
+      },
+      rubocop = {
+        mason = false,
+        cmd = { vim.fn.expand("~/.rbenv/shims/rubocop") },
+      },
       tsgo = {
         enabled = false,
         mason = false,
@@ -226,7 +232,6 @@ return {
           "tsconfig.json",
           "jsconfig.json",
           "package.json",
-          ".git",
           "tsconfig.base.json"
         ),
         init_options = {
