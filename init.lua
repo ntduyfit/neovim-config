@@ -1,5 +1,3 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
---
 require("config.lazy")
 if vim.g.neovide then
   vim.o.guifont = "Google Sans Mono Nerd:b,SF Mono:h14:b:#e-antialias"
